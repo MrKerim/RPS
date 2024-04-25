@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>life</title>
+    <style>
+        body {
+            height: 100%;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             flex-direction: column;
+             align-items: center;
+        }
+        .stats {
+            padding-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+
+        button {
+            margin-bottom: 15px;
+            width: 100px; 
+            height: 40px; 
+            font-size: 15px; 
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 20px;
+            border: none; 
+            background-color: #d3d3d3; /* Background color */
+            color: black; /* Text color */
+            cursor: pointer; /* Cursor indicates clickable */
+            transition: all 0.3s; /* Smooth transition for hover effects */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Adds shadow to the button */
+}
+
+button:hover {
+    background-color: #454545; /**/
+    color: white;
+    }
+
+    .streak {
+            padding-top: 0px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+    }
+
+
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <canvas id ="life" width="500" height="500" ></canvas>
+    <div class="stats">
+        <div class="box">
+        <button id = "scs_btn">Scissors</button>
+        <div id = "scs">50</div>
+        </div>
+        <div class="box">
+        <button id = "ppr_btn">Paper</button>
+        <div id = "ppr">50</div>
+        </div>
+        <div class="box">
+        <button id = "rck_btn">Rock</button>
+        <div id = "rck">50</div>
+        </div>
+    </div>
+    <div class = "streak" style="padding: 0px;">
+        <h3>Streak</h2>
+        <div id = "streak_stat">0/5</div>
+    </div>
+
+<script>
+
+    let streak = 0;
+
+    m = document.getElementById("life").getContext('2d');
+
+    draw = (x,y,c,s) => {
+        if(c == "yellow"){
+        m.fillStyle = "white";
+        m.fillRect(x,y,s,s);
+        }
+        else if(c == "red"){
+        m.fillStyle = "gray";   // Color of the circle
+        m.strokeStyle = "gray"; // Color of the circle's border
+        m.lineWidth = 5;       // Thickness of the border
+
+    // Draw a circle
+
+        const radius = 7; // Radius of the circle
+
+        m.beginPath();
+        m.arc(x, y, radius, 0, 2 * Math.PI, false); // Draw complete circle
+        m.fill();   // Fill the circle with the fillStyle
+        m.stroke(); // Draw the border of the circle
+
+        }
+        else{
+        m.strokeStyle = 'red'; // Color of the X's lines
+        m.lineWidth = 3;        // Thickness of the lines
+
+    // Draw the first diagonal line (\)
+        m.beginPath();
+        m.moveTo(x-7,y-4); // Start point
+        m.lineTo(x+7, y+7); // End point
+        m.stroke(); // Draw the line
+
+    // Draw the second diagonal line (/)
+        m.beginPath();
+        m.moveTo(x-7, y+4); // Start point
+        m.lineTo(x+7, y-7); // End point
+        m.stroke(); // Draw the line
+
+        m.fillStyle = 'red';   // Color of the circle
+        m.strokeStyle = 'red'; // Color of the circle's border
+        m.lineWidth = 3;       // Thickness of the border
+
+    // Draw a circle
+
+        const radius = 2; // Radius of the circle
+
+        m.beginPath();
+        m.arc(x-9, y-6, radius, 0, 2 * Math.PI, false); // Draw complete circle
+        m.fill();   // Fill the circle with the fillStyle
+        m.stroke(); // Draw the border of the circle
+        m.beginPath();
+        m.arc(x-9, y+6, radius, 0, 2 * Math.PI, false); // Draw complete circle
+        m.fill();   // Fill the circle with the fillStyle
+        m.stroke(); // Draw the border of the circle
+        }
+    }   
+
+    particles = [];
+    particle = (x,y,c) => {
+        v=1 ;
+        d = Math.random()*2*Math.PI;
+        vx = Math.cos(d)*v;
+        vy = Math.sin(d)*v;
+        return {"x":x, "y":y, "vx":vx, "vy":vy, "color":c};
+    }
+
+    random = () => {
+        return Math.random()*400+50;
+    }
+
+    create = (number,color) => {
+        group = [];
+        if(color == "red")
+        for(let i = 0; i<number;i++){
+            group.push(particle(random()*0.5,random()*0.5,color));
+            particles.push(group[i]);
+        }
+        else if(color == "yellow")
+        for(let i = 0; i<number;i++){
+            group.push(particle(250+random()*0.5,random()*0.5,color));
+            particles.push(group[i]);
+        }
+        else 
+        for(let i = 0; i<number;i++){
+            group.push(particle(130+random()*0.5,220+random()*0.5,color));
+            particles.push(group[i]);
+        }
+
+        return group;
+    }
+
+
+    rule = (particle1) => {
+        particle1.x = particle1.x + particle1.vx;
+        particle1.y = particle1.y + particle1.vy;
+        if(particle1.x < 0 || particle1.x > 485){
+            particle1.vx = -particle1.vx;
+        }
+        if(particle1.y < 0 || particle1.y > 485){
+            
+            particle1.vy = -particle1.vy;
+        }
+        for(let i = 0; i<particles.length;i++){
+            if(particles[i] != particle1){
+                if(Math.abs(particles[i].x - particle1.x) < 15 && Math.abs(particles[i].y - particle1.y) < 15){
+
+                    if(particles[i].color == "red" && particle1.color == "yellow"){
+                        particles[i].color = "yellow";
+                    }
+                    else if(particles[i].color == "yellow" && particle1.color == "red"){
+                        particle1.color = "yellow";
+                    }
+                    else if(particles[i].color == "yellow" && particle1.color == "blue"){
+                        particles[i].color = "blue";
+                    }
+                    else if(particles[i].color == "blue" && particle1.color == "yellow"){
+                        particle1.color = "blue";
+                    }
+                    else if(particles[i].color == "red" && particle1.color == "blue"){
+                        particle1.color = "red";
+                    }
+                    else if(particles[i].color == "blue" && particle1.color == "red"){
+                        particles[i].color = "red";
+                    }
+                }
+            }
+        }
+    }
+
+    const createAndDisable = () => {
+        yellow = create(50,"yellow");
+        red = create(50,"red");
+        blue = create(50,"blue");
+        document.getElementById("scs_btn").disabled = true;
+        document.getElementById("rck_btn").disabled = true;
+        document.getElementById("ppr_btn").disabled = true;
+    }
+
+    let guess = null;
+    document.getElementById("scs_btn").addEventListener("click", () => {
+        guess = "blue";
+        document.getElementById("scs_btn").style.backgroundColor = "#454545";
+        document.getElementById("scs_btn").style.color = "white";
+        createAndDisable();
+    });
+    document.getElementById("rck_btn").addEventListener("click", () => {
+        guess = "red";
+        document.getElementById("rck_btn").style.backgroundColor = "#454545";
+        document.getElementById("rck_btn").style.color = "white";
+        createAndDisable();
+    });
+    document.getElementById("ppr_btn").addEventListener("click", () => {
+        guess = "yellow";
+        document.getElementById("ppr_btn").style.backgroundColor = "#454545";
+        document.getElementById("ppr_btn").style.color = "white";
+        createAndDisable();
+    });
+
+
+    const winCredits = () => {
+        m.clearRect(0,0,500,500);
+        m.fillStyle = "#1e1e1e";
+        m.fillRect(0,0,500,500);
+        m.fillStyle = "white"
+
+    const pattern = (color,j) => {
+        m.fillStyle = color;
+        for (let i = 0; i < 500; i += 50) {
+        m.fillRect(i, j + 25, 25, 25);
+        }
+        for (let i = 25; i < 500; i += 50) {
+        m.fillRect(i, j, 25, 25);
+        }
+    
+    }
+    let j = 0;
+    color = "white"
+    const intervalId = setInterval(() => {
+    pattern(color,j);
+    j+=50;
+    if (j > 500) {
+        j = 0; // Reset to loop again
+        
+        // If you want to stop instead of looping, uncomment the next line:
+        if(color == "black"){
+            clearInterval(intervalId);
+            m.fillStyle = "white";
+            for (let i = 0; i < 500; i += 50) {
+            m.fillRect(i,25, 25, 25);
+            }
+            for (let i = 25; i < 500; i += 50) {
+            m.fillRect(i, 0, 25, 25);
+            }
+
+            for (let i = 0; i < 500; i += 50) {
+            m.fillRect(i,450, 25, 25);
+            }
+            for (let i = 25; i < 500; i += 50) {
+            m.fillRect(i, 475, 25, 25);
+            }
+
+            // Write Congragulatioıns!
+            m.fillStyle = "white";
+            m.font = "30px Arial";
+            m.fillText("Congratulations!", 150, 250);
+            m.fillText("This game is for my dear", 100, 300);
+            m.fillText("girlfriend Basak,love you!", 90, 350);
+
+            }
+        color = "black";
+    }
+    }, 500);
+
+
+    }
+
+
+    let shouldUpdate = true;
+    let gameEnd = true;
+    update = () => {
+        if(!shouldUpdate) return;
+        m.clearRect(0,0,500,500);
+        m.fillStyle = "#1e1e1e";
+        m.fillRect(0,0,500,500);
+        for(let i = 0; i<particles.length;i++){
+            rule(particles[i]);
+        }
+        let scs = 0;
+        let ppr = 0;
+        let rck = 0;
+        for(let i = 0; i<particles.length;i++){
+            if(particles[i].color == "red") rck++;
+            if(particles[i].color == "yellow") ppr++;
+            if(particles[i].color == "blue") scs++;
+            draw(particles[i].x,particles[i].y,particles[i].color,15);
+        }
+        requestAnimationFrame(update);
+
+        document.getElementById("scs").textContent = scs;
+        document.getElementById("ppr").textContent = ppr;
+        document.getElementById("rck").textContent = rck;
+
+        if((scs == 150 || ppr == 150 || rck == 150 ) && gameEnd){
+            gameEnd = false;
+            setTimeout(()=>{
+                if(scs == 150 && guess == "blue"){
+                streak++;
+                alert("You win!");
+            }
+            else if(ppr == 150 && guess == "yellow"){
+                streak++;
+                alert("You win!");
+            }
+            else if(rck == 150 && guess == "red"){
+                streak++;
+                alert("You win!");
+            }
+            else{
+                streak = 0;
+                alert("You lose!");
+            }
+            document.getElementById("scs_btn").disabled = false;
+            document.getElementById("rck_btn").disabled = false;
+            document.getElementById("ppr_btn").disabled = false;
+            document.getElementById("scs_btn").style.backgroundColor = "#d3d3d3";
+            document.getElementById("rck_btn").style.backgroundColor = "#d3d3d3";
+            document.getElementById("ppr_btn").style.backgroundColor = "#d3d3d3";
+            document.getElementById("scs_btn").style.color = "black";
+            document.getElementById("rck_btn").style.color = "black";
+            document.getElementById("ppr_btn").style.color = "black";
+            particles = [];
+            guess = null;
+            gameEnd = true;
+
+            if(streak == 5){
+                shouldUpdate = false;
+                winCredits();
+                setTimeout(()=>{
+                    shouldUpdate = true;
+                    streak = 0;
+                    document.getElementById("streak_stat").textContent = "0/5";
+                    update();
+                },15000);
+                
+                  
+            }
+            document.getElementById("streak_stat").textContent = streak+"/5";
+
+            },2000);
+
+        }
+    }
+
+    update();
+</script>
+</body>
+</html>
