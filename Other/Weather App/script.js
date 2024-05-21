@@ -70,7 +70,9 @@ const apiCall = () => {
 			else if (weather == "Haze") image.src = "images/hazel.png";
 			else image.src = "";
 
-			temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
+			temperature.innerHTML = `${parseInt(
+				json.main.temp - 273
+			)}<span>°C</span>`;
 			description.innerHTML = `${json.weather[0].description}`;
 			humidity.innerHTML = `${parseInt(json.main.humidity)}%`;
 			wind.innerHTML = `${parseInt(json.wind.speed)}km/h`;
