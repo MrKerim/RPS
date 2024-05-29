@@ -1,0 +1,118 @@
+body {
+	background-color: #f0f0f0;
+	font-family: Arial, sans-serif;
+	max-width: fit-content;
+	margin: 10px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#container {
+	max-width: 600px;
+	background-color: #4a752c;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#canvas {
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+}
+
+#box {
+	margin: 0;
+	padding: 0;
+}
+
+#winStats {
+	max-width: 600px;
+	background-color: #4a752c;
+	display: flex;
+	margin: 0px;
+	padding: 0px;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+#topWinner {
+	color: #ffffff;
+}
+#winStats i {
+	padding: 10px;
+	margin: 10px;
+	color: #ffffff;
+}
+
+.statContainer {
+	color: #ffffff;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#difficulty {
+	margin: 10px;
+	display: inline-block;
+	position: relative;
+}
+
+.buttons {
+	margin: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 15px;
+
+	cursor: pointer; /* Changes the cursor to indicate clickable items */
+	padding: 10px;
+	color: #ffffff;
+	border-radius: 5px;
+}
+
+.stats {
+	margin: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 15px;
+	color: #ffffff;
+}
+
+#difficulty {
+	display: inline-block;
+	position: relative;
+}
+
+#dropdown {
+	appearance: none; /* Remove default styling */
+	-webkit-appearance: none; /* Remove default styling for Safari */
+	-moz-appearance: none; /* Remove default styling for Firefox */
+	background: none;
+	border: none;
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	background-color: #f2f2f2; /* Light gray background */
+	border-radius: 5px;
+}
+
+#dropdown:focus {
+	outline: none;
+}
+
+/* Add a custom arrow using pseudo-elements */
+#dropdown::after {
+	position: absolute;
+	right: 10px;
+	pointer-events: none;
+}
