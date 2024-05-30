@@ -1,4 +1,7 @@
-let currentUser = "Kerim";
+let currentUser = "Başak Çakir";
+let diff = "Easy";
+
+const dropdown = document.getElementById("dropdown");
 
 let gameOver = false;
 let firstMove = true;
@@ -12,7 +15,7 @@ const timerSpan = document.querySelector("#timer span");
 
 const n = 10;
 const m = 10;
-const mineNumber = 12;
+let mineNumber = 12;
 let minePlace = [];
 let gridSize = 60;
 let prevHighlight = [];
@@ -67,6 +70,7 @@ const checkGameWin = () => {
 };
 
 const winCredits = () => {
+	gameOver = true;
 	// Resetting
 	setTimeout(() => {
 		gameOver = false;
@@ -90,11 +94,9 @@ const winCredits = () => {
 		if (mineNumber >= maxMineFoundStat.innerHTML) {
 			maxMineFoundStat.innerHTML = mineNumber;
 
-			if (maxTimerCount.innerHTML > timer) {
-				maxTimerCount.innerHTML = timer;
+			maxTimerCount.innerHTML = timer;
 
-				maxWinner.innerHTML = currentUser;
-			}
+			maxWinner.innerHTML = currentUser;
 		}
 
 		canvas.fillStyle = "#1e1e1e";
@@ -153,37 +155,8 @@ const numberColor = (x) => {
 	if (x == 7) return "#ff9c01";
 	if (x == 8) return "#10ba00";
 };
-
-for (let i = 0; i < mineNumber; i++) {
-	let check = true;
-	let current;
-	while (check) {
-		check = false; // Reset check to false at the start of each iteration
-		current = {
-			x_n: Math.floor(Math.random() * n),
-			y_n: Math.floor(Math.random() * m),
-		};
-		for (let j = 0; j < minePlace.length; j++) {
-			if (minePlace[j].x_n == current.x_n && minePlace[j].y_n == current.y_n) {
-				check = true;
-				break; // Exit the for loop if a duplicate is found
-			}
-		}
-	}
-	minePlace.push(current);
-}
-
 let grid = [];
-for (let i = 0; i < n; i++) {
-	grid.push([]);
-	for (let j = 0; j < m; j++) {
-		grid[i].push(0);
-	}
-}
 
-for (let i = 0; i < mineNumber; i++) {
-	grid[minePlace[i].y_n][minePlace[i].x_n] = -1;
-}
 function drawCircle(x, y, radius, color) {
 	canvas.beginPath();
 	canvas.arc(x, y, radius, 0, 2 * Math.PI, false);
@@ -215,31 +188,70 @@ const getNeighbours = (x, y) => {
 	if (x < n - 1 && y > 0) neighbours.push({ x: x + 1, y: y - 1 });
 	return neighbours;
 };
-
-for (let i = 0; i < n; i++) {
-	for (let j = 0; j < m; j++) {
-		if (grid[i][j] == -1) continue;
-		let mineNumberInNeighbours = 0;
-		let neighbours = getNeighbours(i, j);
-		for (let k = 0; k < neighbours.length; k++) {
-			if (grid[neighbours[k].x][neighbours[k].y] == -1)
-				mineNumberInNeighbours++;
+const initilizeGrid = () => {
+	grid = [];
+	for (let i = 0; i < mineNumber; i++) {
+		let check = true;
+		let current;
+		while (check) {
+			check = false; // Reset check to false at the start of each iteration
+			current = {
+				x_n: Math.floor(Math.random() * n),
+				y_n: Math.floor(Math.random() * m),
+			};
+			for (let j = 0; j < minePlace.length; j++) {
+				if (
+					minePlace[j].x_n == current.x_n &&
+					minePlace[j].y_n == current.y_n
+				) {
+					check = true;
+					break; // Exit the for loop if a duplicate is found
+				}
+			}
 		}
-		grid[i][j] = mineNumberInNeighbours;
+		minePlace.push(current);
 	}
-}
 
-//
-// Debug prupose
-for (let i = 0; i < n; i++) {
-	console.log(grid[i]);
-}
-//
-//
+	for (let i = 0; i < n; i++) {
+		grid.push([]);
+		for (let j = 0; j < m; j++) {
+			grid[i].push(0);
+		}
+	}
+
+	for (let i = 0; i < mineNumber; i++) {
+		grid[minePlace[i].y_n][minePlace[i].x_n] = -1;
+	}
+
+	for (let i = 0; i < n; i++) {
+		for (let j = 0; j < m; j++) {
+			if (grid[i][j] == -1) continue;
+			let mineNumberInNeighbours = 0;
+			let neighbours = getNeighbours(i, j);
+			for (let k = 0; k < neighbours.length; k++) {
+				if (grid[neighbours[k].x][neighbours[k].y] == -1)
+					mineNumberInNeighbours++;
+			}
+			grid[i][j] = mineNumberInNeighbours;
+		}
+	}
+
+	//
+	// Debug prupose
+	for (let i = 0; i < n; i++) {
+		console.log(grid[i]);
+	}
+	//
+	//
+};
 
 const canvas = document.getElementById("canvas").getContext("2d");
 
 const startScreen = () => {
+	timerSpan.innerHTML = 0;
+	flagSpan.innerHTML = 20;
+	initilizeGrid();
+
 	canvas.fillStyle = "#a2d148";
 	canvas.fillRect(0, 0, 600, 600);
 	canvas.fillStyle = "#aad750";
@@ -271,6 +283,24 @@ const higlightSquare = (x, y) => {
 };
 
 const gameOverScreen = (x, y) => {
+	// Resetting
+	setTimeout(() => {
+		timerSpan.innerHTML = 0;
+		flagSpan.innerHTML = 20;
+		gameOver = false;
+		firstMove = true;
+		flagNumber = 20;
+		mineFind = 0;
+
+		timer = 0;
+
+		minePlace = [];
+		prevHighlight = [];
+		flagRegion = [];
+		notPermitted = [];
+		startScreen();
+	}, mineNumber * 500 + 1000 + 5000);
+
 	gameOver = true;
 	countFinalMineNumber();
 	if (mineFind >= maxMineFoundStat.innerHTML) {
@@ -484,6 +514,164 @@ const BFS = (x, y) => {
 	}
 };
 
+// This function sets the border of the notPermitted regions to a different color
+const borderControl = () => {
+	const lineW = 4;
+	let firstToErase = [];
+	let seconToDraw = [];
+
+	for (let i = 0; i < notPermitted.length; i++) {
+		let check = true;
+		for (let j = 0; j < flagRegion.length; j++) {
+			if (
+				notPermitted[i].x == flagRegion[j].x &&
+				notPermitted[i].y == flagRegion[j].y
+			) {
+				check = false;
+				break;
+			}
+		}
+
+		if (!check) continue;
+		// Now we have a digged region meaning it is not flagged however not permitted
+		// So we need to set the border color to a different color if it has a permitted neighbour
+		// if not we will set it to the same color as the region
+		let x = notPermitted[i].x;
+		let y = notPermitted[i].y;
+
+		let neighbours = [];
+		if (x > 0) neighbours.push({ x: x - gridSize, y: y, way: "left" });
+		if (x < (n - 1) * gridSize)
+			neighbours.push({ x: x + gridSize, y: y, way: "right" });
+		if (y > 0) neighbours.push({ x: x, y: y - gridSize, way: "up" });
+		if (y < (m - 1) * gridSize)
+			neighbours.push({ x: x, y: y + gridSize, way: "down" });
+
+		for (let j = 0; j < neighbours.length; j++) {
+			// Chek if the neighbor is not notPermitted or a flagRegion
+			let check = true;
+			for (let k = 0; k < notPermitted.length; k++) {
+				if (
+					notPermitted[k].x == neighbours[j].x &&
+					notPermitted[k].y == neighbours[j].y
+				) {
+					check = false;
+					break;
+				}
+			}
+
+			if (!check) {
+				for (let u = 0; u < flagRegion.length; u++) {
+					if (
+						flagRegion[u].x == neighbours[j].x &&
+						flagRegion[u].y == neighbours[j].y
+					) {
+						check = true;
+					}
+				}
+			}
+
+			if (check) {
+				// If the check is true wee need to set the border color to a different color
+				seconToDraw.push(neighbours[j]);
+			} else {
+				firstToErase.push(neighbours[j]);
+			}
+		}
+	}
+
+	for (let j = 0; j < firstToErase.length; j++) {
+		canvas.lineWidth = lineW;
+		if (firstToErase[j].way == "left") {
+			if (blackOrWhite(firstToErase[j].x + gridSize, firstToErase[j].y) == 0)
+				canvas.strokeStyle = "#e4c19f";
+			else canvas.strokeStyle = "#d7b899";
+
+			canvas.beginPath();
+			canvas.moveTo(
+				firstToErase[j].x + gridSize + lineW / 2,
+				firstToErase[j].y
+			);
+			canvas.lineTo(
+				firstToErase[j].x + gridSize + lineW / 2,
+				firstToErase[j].y + gridSize
+			);
+			canvas.stroke();
+		} else if (firstToErase[j].way == "right") {
+			if (blackOrWhite(firstToErase[j].x - gridSize, firstToErase[j].y) == 0)
+				canvas.strokeStyle = "#e4c19f";
+			else canvas.strokeStyle = "#d7b899";
+
+			canvas.beginPath();
+			canvas.moveTo(firstToErase[j].x - lineW / 2, firstToErase[j].y);
+			canvas.lineTo(
+				firstToErase[j].x - lineW / 2,
+				firstToErase[j].y + gridSize
+			);
+			canvas.stroke();
+		} else if (firstToErase[j].way == "up") {
+			if (blackOrWhite(firstToErase[j].x, firstToErase[j].y + gridSize) == 0)
+				canvas.strokeStyle = "#e4c19f";
+			else canvas.strokeStyle = "#d7b899";
+
+			canvas.beginPath();
+			canvas.moveTo(
+				firstToErase[j].x,
+				firstToErase[j].y + gridSize + lineW / 2
+			);
+			canvas.lineTo(
+				firstToErase[j].x + gridSize,
+				firstToErase[j].y + gridSize + lineW / 2
+			);
+			canvas.stroke();
+		} else if (firstToErase[j].way == "down") {
+			if (blackOrWhite(firstToErase[j].x, firstToErase[j].y - gridSize) == 0)
+				canvas.strokeStyle = "#e4c19f";
+			else canvas.strokeStyle = "#d7b899";
+			canvas.beginPath();
+			canvas.moveTo(firstToErase[j].x, firstToErase[j].y - lineW / 2);
+			canvas.lineTo(
+				firstToErase[j].x + gridSize,
+				firstToErase[j].y - lineW / 2
+			);
+			canvas.stroke();
+		}
+	}
+
+	for (let j = 0; j < seconToDraw.length; j++) {
+		canvas.strokeStyle = "#86af3a";
+
+		canvas.lineWidth = lineW;
+		if (seconToDraw[j].way == "left") {
+			canvas.beginPath();
+			canvas.moveTo(seconToDraw[j].x + gridSize + lineW / 2, seconToDraw[j].y);
+			canvas.lineTo(
+				seconToDraw[j].x + gridSize + lineW / 2,
+				seconToDraw[j].y + gridSize
+			);
+			canvas.stroke();
+		} else if (seconToDraw[j].way == "right") {
+			canvas.beginPath();
+			canvas.moveTo(seconToDraw[j].x - lineW / 2, seconToDraw[j].y);
+			canvas.lineTo(seconToDraw[j].x - lineW / 2, seconToDraw[j].y + gridSize);
+			canvas.stroke();
+		} else if (seconToDraw[j].way == "up") {
+			canvas.beginPath();
+			canvas.moveTo(seconToDraw[j].x, seconToDraw[j].y + gridSize + lineW / 2);
+			canvas.lineTo(
+				seconToDraw[j].x + gridSize,
+				seconToDraw[j].y + gridSize + lineW / 2
+			);
+			canvas.stroke();
+		} else if (seconToDraw[j].way == "down") {
+			canvas.beginPath();
+			canvas.moveTo(seconToDraw[j].x, seconToDraw[j].y - lineW / 2);
+			canvas.lineTo(seconToDraw[j].x + gridSize, seconToDraw[j].y - lineW / 2);
+			canvas.stroke();
+		}
+	}
+};
+
 // Normal Clik event
 document.getElementById("canvas").addEventListener("click", function (event) {
 	if (gameOver) return;
@@ -513,6 +701,8 @@ document.getElementById("canvas").addEventListener("click", function (event) {
 			updateTimer();
 		}
 		BFS(x / gridSize, y / gridSize);
+
+		borderControl();
 
 		checkGameWin();
 	} else {
@@ -563,6 +753,7 @@ document
 				canvas.fillRect(x, y, gridSize, gridSize);
 				flagNumber++;
 				flagSpan.innerHTML = flagNumber;
+				borderControl();
 
 				return;
 			}
@@ -593,6 +784,7 @@ document
 		flagAudio.play();
 		checkGameWin();
 		drawFlag(x, y);
+		borderControl();
 	});
 
 // Share button
@@ -621,12 +813,14 @@ muteButton.addEventListener("click", () => {
 		digAudio.muted = true;
 		tntAudio.muted = true;
 		flagAudio.muted = true;
+		winCreditSound.muted = true;
 	} else {
 		muteIcon.classList.remove("fa-volume-mute");
 		muteIcon.classList.add("fa-volume-up");
 		digAudio.muted = false;
 		tntAudio.muted = false;
 		flagAudio.muted = false;
+		winCreditSound.muted = false;
 	}
 });
 
@@ -637,3 +831,34 @@ const updateTimer = () => {
 	timerSpan.innerHTML = timer;
 	setTimeout(updateTimer, 1000);
 };
+
+// Difficulty level
+dropdown.addEventListener("change", () => {
+	if (gameOver) {
+		dropdown.value = diff;
+		return;
+	}
+	diff = dropdown.value;
+
+	if (diff == "Easy") mineNumber = 12;
+	if (diff == "Normal") mineNumber = 20;
+	if (diff == "Easy") mineNumber = 50;
+
+	setTimeout(() => {
+		gameOver = false;
+	}, 1000);
+	timerSpan.innerHTML = 0;
+	flagSpan.innerHTML = 20;
+	gameOver = true;
+	firstMove = true;
+	flagNumber = 20;
+	mineFind = 0;
+
+	timer = 0;
+
+	minePlace = [];
+	prevHighlight = [];
+	flagRegion = [];
+	notPermitted = [];
+	startScreen();
+});
