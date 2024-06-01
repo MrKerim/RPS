@@ -1,0 +1,23 @@
+body {
+	background-color: #000000;
+}
+.mouseCircle {
+	position: absolute;
+	width: 250px;
+	height: 350px;
+	border-radius: 50%;
+	background: linear-gradient(to right, #ed69ff, #3161ff);
+	animation: rotate 10s linear infinite; /* Rotates the ellipse slowly */
+	transition: transform 0.5s ease-out;
+
+	filter: blur(150px);
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
