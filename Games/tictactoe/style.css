@@ -1,0 +1,39 @@
+body {
+	background-color: #1e1e1e;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+
+	font-family: Arial, sans-serif;
+}
+
+.menu {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.gameContainer {
+	display: grid;
+
+	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 100px);
+}
+
+.gameContainer > div {
+	width: 100px;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	border: 5px solid #676767;
+
+	font-size: 60px;
+	cursor: pointer;
+}
+
+.gameContainer > div:hover {
+	background-color: #eeeeee;
+}
