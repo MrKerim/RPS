@@ -210,3 +210,85 @@ body {
 		transform: scale(1) rotate(45deg);
 	}
 }
+
+.menu {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 32px;
+}
+
+.resetButton {
+	background-color: #feffd2;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	color: #ffbf78;
+	border: none;
+	padding: 10px 20px;
+	margin-top: 20px;
+	margin-bottom: 25px;
+	cursor: pointer;
+	border-radius: 18px;
+	animation: scalefromZH 1s ease-in 1 forwards;
+}
+
+@keyframes scalefromZH {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+.resetButton:hover {
+	transition: ease 0.3s;
+	background-color: #ffbf78;
+	color: #feffd2;
+}
+
+.stats {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	text-align: center;
+	background-color: #feffd2;
+	color: #ffbf78;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 26px;
+	width: 100%;
+	gap: 40px;
+	margin-top: 40px;
+	padding-bottom: 10px;
+	border-radius: 18px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	animation: scalefromZH 1s ease-in 1 forwards;
+}
+
+.gameContainer > .result {
+	z-index: -1;
+	width: 170px;
+	height: 170px;
+	cursor: default;
+	position: absolute;
+	top: 36%;
+	left: 42%;
+	background-color: rgba(72, 72, 72, 0.807);
+	border-radius: 18px;
+	scale: 0;
+	animation: resultScreen 3s cubic-bezier(0, 0.96, 0.67, 1.01) 1 backwards;
+}
+
+@keyframes resultScreen {
+	from {
+		z-index: -1;
+		scale: 0;
+	}
+	to {
+		z-index: 10;
+		scale: 1;
+	}
+}
