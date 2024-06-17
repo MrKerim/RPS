@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BezierCurve</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="icon" href="src/bezierIcon.png" type="image/png" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<div class="canvas-container">
+			<canvas id="canvas" width="1000" height="700"></canvas>
+			<div class="panelButton fas fa-cog"></div>
+			<div class="panel">
+				<div class="closePanelButton fas fa-times no-select"></div>
+				<div class="newCurveButton no-select">New Curve</div>
+				<div class="cancelNewCurveButton no-select">Cancel</div>
+				<div class="exportTypes">
+					<div class="no-select" id="exportSVG">
+						<i class="fa-solid fa-bezier-curve"></i>
+						<label>SVG</label>
+					</div>
+					<div class="no-select" id="exportPNG">
+						<i class="fa-solid fa-file-image"></i>
+						<label>PNG</label>
+					</div>
+				</div>
+				<div class="newCurveAttributes no-select">
+					<div class="strokeStyle">
+						<label>Stroke Color</label>
+						<input type="color" class="strokeStyleInput" value="#0ce2ff" />
+					</div>
+					<div class="strokeWidth">
+						<label>Stroke Width</label>
+						<input type="number" class="strokeWidthInput" value="5" />
+					</div>
+					<div class="fillStyle">
+						<input type="checkbox" class="fillStyleCheckbox" />
+						<label>Fill Color</label>
+						<input type="color" class="fillStyleColor" value="#0ce2ff" />
+					</div>
+				</div>
+				<div class="deleteCurveButton no-select">Delete Curve</div>
+				<div class="settings">
+					<div class="checkbox1 no-select">
+						<input
+							class="no-select"
+							type="checkbox"
+							id="showControlPoints"
+							checked
+						/>
+						<label class="no-select" for="showControlPoints"
+							>Control Points</label
+						>
+					</div>
+					<div class="checkbox2">
+						<input
+							class="no-select"
+							type="checkbox"
+							id="showDashedLines"
+							checked
+						/>
+						<label class="no-select" for="showDashedLines">Dashed Lines</label>
+					</div>
+					<div class="exportButton">
+						<div class="no-select fa-solid fa-arrow-up-from-bracket"></div>
+						<div>Export</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+		<script src="panel.js"></script>
+	</body>
+</html>

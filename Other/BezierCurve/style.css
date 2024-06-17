@@ -1,0 +1,244 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background-color: #f0f0f0;
+	cursor: url("src/cursor.png"), auto;
+}
+canvas {
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.canvas-container {
+	position: relative;
+	display: inline-block;
+}
+
+.panelButton {
+	position: absolute;
+	top: 20px;
+
+	right: 15px;
+
+	font-size: 28px;
+	color: rgb(110, 110, 110);
+	justify-content: right;
+	align-items: right;
+	display: flex;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 5px;
+	cursor: pointer;
+}
+.panelButton:hover {
+	transition: ease-in-out 0.2s;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #000000;
+}
+
+.panel {
+	scale: 0;
+	font-size: 20px;
+	background-color: rgba(0, 0, 0, 0.1);
+	display: flex;
+	width: 200px;
+	flex-direction: column;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	color: rgb(110, 110, 110);
+	justify-content: center;
+	align-items: center;
+	border-radius: 12px;
+	padding: 30px;
+	margin: 20px;
+	gap: 15px;
+	transform-origin: top right;
+}
+
+.closePanelButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 30px;
+	color: rgb(110, 110, 110);
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 5px;
+	z-index: 5;
+}
+
+.closePanelButton:hover {
+	transition: ease-in-out 0.2s;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #000000;
+}
+
+.settings {
+	display: flex;
+	flex-direction: column;
+}
+
+.newCurveButton {
+	scale: 1;
+	background-color: #1c8454;
+	color: rgb(233, 233, 233);
+	padding: 10px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+.newCurveButton:hover {
+	transition: ease-in-out 0.2s;
+	background-color: #135938;
+	color: #ffffff;
+}
+
+.cancelNewCurveButton {
+	display: none;
+	background-color: #ffc40c;
+	color: rgb(233, 233, 233);
+	padding: 10px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+.cancelNewCurveButton:hover {
+	transition: ease-in-out 0.2s;
+	background-color: #886809;
+	color: #ffffff;
+}
+
+.deleteCurveButton {
+	scale: 1;
+	background-color: #e03444;
+	color: rgb(233, 233, 233);
+	padding: 10px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+.deleteCurveButton:hover {
+	transition: ease-in-out 0.2s;
+	background-color: #671820;
+	color: #ffffff;
+}
+
+input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+
+	border: 1px solid #999;
+	border-radius: 3px;
+	background-color: white;
+	cursor: pointer;
+
+	margin-right: 10px;
+}
+
+label {
+	display: inline-block;
+	vertical-align: middle;
+
+	cursor: pointer;
+
+	margin-bottom: 5px;
+}
+
+.no-select {
+	user-select: none;
+	-moz-user-select: none; /* For Firefox */
+	-webkit-user-select: none; /* For Chrome, Safari, and Opera */
+	-ms-user-select: none; /* For Internet Explorer and Edge */
+}
+
+input[type="number"] {
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 8px; /* Adjust padding as needed */
+	border: 1px solid #ccc; /* Border style */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 14px; /* Font size */
+	width: 50px; /* Width of the input */
+	text-align: center; /* Center text */
+	outline: none; /* Remove outline on focus */
+}
+
+/* Optional: Hover and focus styles */
+input[type="number"]:hover,
+input[type="number"]:focus {
+	border-color: #333; /* Darker border color on hover/focus */
+}
+
+.newCurveAttributes {
+	display: none;
+}
+.exportButton {
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+	border-radius: 10px;
+	margin: 5px;
+}
+
+.fa-arrow-up-from-bracket {
+	margin-right: 10px;
+}
+
+.exportButton:hover {
+	transition: ease-in-out 0.2s;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #000000;
+}
+
+.exportTypes {
+	display: none;
+	flex-direction: row;
+	gap: 25px;
+}
+
+#exportSVG {
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	display: flex;
+	gap: 7px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+#exportSVG:hover {
+	transition: ease-in-out 0.2s;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #000000;
+}
+
+#exportPNG {
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	display: flex;
+	gap: 7px;
+	padding: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+#exportPNG:hover {
+	transition: ease-in-out 0.2s;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #000000;
+}
