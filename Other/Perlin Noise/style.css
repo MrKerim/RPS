@@ -332,7 +332,6 @@ canvas {
 	border-radius: 8px;
 	background-color: #1f143d;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	cursor: pointer;
 	transition: 1s;
 }
 #use_island_func {
@@ -343,6 +342,8 @@ canvas {
 
 .use_island_func div {
 	margin-left: 15px;
+	padding: 5px;
+	cursor: pointer;
 }
 
 .glowing_text {

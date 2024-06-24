@@ -11,7 +11,8 @@ const layer_panel_icon = document.querySelector("#layer_button i");
 const layer_panel_item_array = document.querySelectorAll(".layer_panel_item");
 let layer_panel_open = false;
 
-const use_island_func_div = document.querySelector(".use_island_func");
+let use_island_func_value = false;
+const use_island_func_div = document.querySelector(".use_island_func div");
 const use_island_func_checkbox = document.getElementById("use_island_func");
 
 const altitude_button = document.getElementById("altitude_button");
@@ -47,7 +48,10 @@ window.addEventListener("DOMContentLoaded", () => {
 		use_island_func_checkbox.checked = !use_island_func_checkbox.checked;
 		use_island_func_value = !use_island_func_value;
 	});
-	use_island_func_checkbox.addEventListener("click", () => {
+	use_island_func_checkbox.addEventListener("click", (e) => {
+		use_island_func_checkbox.checked = !use_island_func_checkbox.checked;
+		use_island_func_value = !use_island_func_value;
+
 		use_island_func_checkbox.checked = !use_island_func_checkbox.checked;
 		use_island_func_value = !use_island_func_value;
 	});

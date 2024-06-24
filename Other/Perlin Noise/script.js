@@ -77,8 +77,6 @@ const colorAltitude = (altitude) => {
 	return altitudesColor[altitudesColor.length - 1];
 };
 
-let use_island_func_value = false;
-
 const draw_canvas = (map) => {
 	let min = Infinity;
 	let max = -Infinity;
