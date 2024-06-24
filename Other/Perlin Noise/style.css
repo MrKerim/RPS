@@ -40,7 +40,8 @@ body {
 
 canvas {
 	border: 1px solid black;
-	background-color: white;
+	background-color: #1f143d;
+
 	border-radius: 12px;
 	display: block;
 	margin: 0 auto;
@@ -95,6 +96,7 @@ canvas {
 	font-size: 2em;
 	justify-content: space-between;
 	margin: 25px;
+	transition: 1s;
 }
 
 #pixel_number_panel {
@@ -152,6 +154,7 @@ canvas {
 	width: 270px;
 	height: 100px;
 	margin-left: 25px;
+	margin-bottom: 115px;
 }
 
 .layer_panel_item {
@@ -205,4 +208,191 @@ canvas {
 .layer_panel_item:nth-child(6) {
 	grid-column: 2;
 	grid-row: 3;
+}
+
+#pixel_number_button i {
+	transition: 0.3s ease-in;
+}
+
+#layer_button i {
+	transition: 0.3s ease-in;
+}
+
+#altitude_button i {
+	transition: 0.3s ease-in;
+}
+
+.generate_button {
+	width: 120px;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e94d30;
+	font-size: 2em;
+	margin: 70px;
+	margin-top: 120px;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 7px #a71b00;
+}
+.generate_button:active {
+	box-shadow: 0 0 #a71b00; /* Pressed effect */
+	transform: translateY(2px); /* Simulate pressing down */
+}
+
+.download_button {
+	width: 120px;
+	color: #aea5c9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #45376c;
+	font-size: 2em;
+	margin: 70px;
+	margin-top: 0px;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 7px #2e1c5a;
+}
+.download_button:active {
+	box-shadow: 0 0 #2e1c5a; /* Pressed effect */
+	transform: translateY(2px); /* Simulate pressing down */
+}
+
+.non-selectable {
+	user-select: none; /* Standard syntax */
+	-webkit-user-select: none; /* Safari and Chrome */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#altitude_panel {
+	display: none;
+	flex-direction: column;
+	width: 270px;
+	margin-left: 25px;
+	margin-bottom: 115px;
+}
+.altitude_panel_item {
+	display: flex;
+	align-items: center;
+	margin: 15px;
+}
+.altitude_panel_item_color {
+	width: 25px;
+	height: 25px;
+	background-color: #ccc;
+	border-radius: 5px;
+	margin-right: 15px;
+}
+.altitude_panel_item_slider {
+	flex: 1;
+	-webkit-appearance: none;
+	width: 100%;
+	height: 2px;
+	border-radius: 5px;
+	background: linear-gradient(to right, #000000 0%, #ffffff 100%);
+	outline: none;
+	opacity: 1;
+	transition: opacity 0.15s ease-in-out;
+}
+.altitude_panel_item_slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background: #aea5c9;
+	cursor: pointer;
+}
+
+#altitude_panel_item14 input {
+	display: none;
+}
+
+.use_island_func {
+	position: relative;
+	width: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #aea5c9;
+	font-size: 1.5em;
+	padding: 10px;
+	margin-left: 30px;
+	border-radius: 8px;
+	background-color: #1f143d;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	transition: 1s;
+}
+#use_island_func {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.use_island_func div {
+	margin-left: 15px;
+}
+
+.glowing_text {
+	color: #ffffff;
+	text-shadow: 0 0 15px #fff, 0 0 20px #fff, 0 0 35px #fff, 0 0 40px #ffff,
+		0 0 45px #fff, 0 0 50px #fff;
+}
+
+.reset_altitudes {
+	width: 120px;
+	color: #aea5c9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #45376c;
+	font-size: 1.2em;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 8px;
+	margin: 10px;
+	margin-left: 25px;
+	cursor: pointer;
+	box-shadow: 0 7px #2e1c5a;
+}
+.reset_altitudes:active {
+	box-shadow: 0 0 #2e1c5a; /* Pressed effect */
+	transform: translateY(2px); /* Simulate pressing down */
+}
+
+#footer {
+	background-color: #333; /* Dark background color */
+	color: white; /* Text color */
+	text-align: center; /* Center-align text */
+	position: fixed; /* Fixed position */
+	bottom: 0; /* Stick to the bottom */
+	left: 0; /* Stick to the left */
+	width: 100%; /* Full width */
+	padding: 10px 0; /* Padding for content */
+}
+.copyright a {
+	color: #fff; /* Link color */
+	text-decoration: none; /* Remove underline */
+	font-weight: bold; /* Bold font weight */
+}
+.copyright a:hover {
+	text-decoration: underline; /* Underline on hover */
+}
+/* Styling for the copyright text */
+.copyright {
+	font-size: 14px; /* Adjust font size as needed */
 }

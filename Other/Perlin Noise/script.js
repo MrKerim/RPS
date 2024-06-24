@@ -1,35 +1,100 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 const width = canvas.width;
 const height = canvas.height;
 
-const generate_map = () => {
-	init_map();
-	init_corner_vectors();
-	let new_map = [perlin_noise_generator()];
+let layer = 2;
+let pixel_number = 512;
+let grid_size = 8;
 
-	for (let i = 1; i < layer; i++) {
-		grid_size *= 2;
-		init_map();
-		init_corner_vectors();
-		new_map.push(perlin_noise_generator());
-	}
-
-	init_map();
-	console.log("generate map after init map:", map);
-
-	for (let i = 1; i <= layer; i++) {
-		for (let j = 0; j < pixel_number; j++) {
-			for (let k = 0; k < pixel_number; k++) {
-				map[j][k] += new_map[i - 1][j][k] / (i * 2);
-			}
-		}
-	}
+const init_canvas_writing = () => {
+	// Write click generate on canvas
+	ctx.fillStyle = "#aea5c9";
+	ctx.font = "40px Calistoga";
+	ctx.textAlign = "center";
+	ctx.fillText("Click generate", width / 2, height / 2);
+	ctx.fillText("to create a terrain 🏔️", width / 2, height / 2 + 50);
 };
-const draw_canvas = () => {
+init_canvas_writing();
+
+let currentMap = [];
+const generate_map = (layer, pixel_number, grid_size) => {
+	return new Promise((resolve, reject) => {
+		try {
+			let map = Noise(layer, pixel_number, grid_size);
+			if (use_island_func_value) {
+				for (let i = 0; i < pixel_number; i++)
+					for (let j = 0; j < pixel_number; j++) {
+						const xk =
+							1 -
+							Math.pow(
+								Math.sin((Math.PI * (i - pixel_number / 2)) / pixel_number),
+								2
+							);
+						const yk =
+							1 -
+							Math.pow(
+								Math.sin((Math.PI * (j - pixel_number / 2)) / pixel_number),
+								2
+							);
+						map[i][j] *= xk * yk;
+					}
+			}
+
+			resolve(map);
+		} catch (error) {
+			reject(error);
+		}
+	});
+};
+
+// #140736
+const altitudesColor = [
+	"#7d8682",
+	"#87968c",
+	"#919f96",
+	"#a5b3a9",
+	"#afb4aa",
+	"#d7d7c7",
+	"#a5aa8c",
+	"#c8c3a0",
+	"#e0d2a5",
+	"#d2b496",
+	"#cda086",
+	"#af7873",
+	"#a05555",
+	"#914137",
+];
+
+let currentAltitudes = [...initialAltitudes];
+
+const colorAltitude = (altitude) => {
+	// from 0 to 255 to 0 to 13
+	for (let i = 0; i < currentAltitudes.length; i++) {
+		if (altitude <= currentAltitudes[i]) return altitudesColor[i];
+	}
+	return altitudesColor[altitudesColor.length - 1];
+};
+
+let use_island_func_value = false;
+
+const draw_canvas = (map) => {
+	let min = Infinity;
+	let max = -Infinity;
+	for (let i = 0; i < pixel_number; i++)
+		for (let j = 0; j < pixel_number; j++) {
+			if (map[i][j] < min) min = map[i][j];
+			if (map[i][j] > max) max = map[i][j];
+		}
+	const range = max - min;
+	map = map.map((row) => row.map((value) => ((value - min) / range) * 255));
+
+	// Draw map
 	for (let i = 0; i < pixel_number; i++) {
 		for (let j = 0; j < pixel_number; j++) {
-			ctx.fillStyle = `rgb(${map[i][j]}, ${map[i][j]}, ${map[i][j]})`;
+			//ctx.fillStyle = `rgb(${map[i][j]}, ${map[i][j]}, ${map[i][j]})`;
+			ctx.fillStyle = colorAltitude(map[i][j]);
 			ctx.fillRect(
 				(i * width) / pixel_number,
 				(j * height) / pixel_number,
@@ -40,20 +105,30 @@ const draw_canvas = () => {
 	}
 };
 
+async function draw(layer, pixel_number, grid_size) {
+	try {
+		const map = await generate_map(layer, pixel_number, grid_size);
+		currentMap = map;
+		draw_canvas(map);
+	} catch (error) {
+		console.error("Error in calculations:", error);
+	}
+}
+
 window.addEventListener("DOMContentLoaded", () => {
+	document.querySelector(".generate_button").addEventListener("click", () => {
+		draw(layer, pixel_number, grid_size);
+	});
+
 	document.querySelectorAll(".pixel_number_panel_item").forEach((item) => {
 		item.addEventListener("click", () => {
 			pixel_number = parseInt(item.innerText);
-			generate_map();
-			draw_canvas();
 		});
 	});
 
 	document.querySelectorAll(".layer_panel_item").forEach((item) => {
 		item.addEventListener("click", () => {
 			layer = parseInt(item.innerText);
-			generate_map();
-			draw_canvas();
 		});
 	});
 });

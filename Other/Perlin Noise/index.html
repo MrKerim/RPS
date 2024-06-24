@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Topography Map</title>
+		<title>Dynamic Terrain Generator</title>
 		<link rel="stylesheet" href="style.css" />
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 		/>
+		<link rel="icon" href="src/icon.png" type="image/png" />
 	</head>
 	<body>
 		<header>
@@ -32,7 +33,7 @@
 			</p>
 		</header>
 		<div class="container">
-			<div class="panel">
+			<div class="panel non-selectable">
 				<div id="pixel_number_button" class="panelButton">
 					<div>Pixel grid size</div>
 					<i class="fas fa-chevron-down"></i>
@@ -54,9 +55,204 @@
 					<div class="layer_panel_item">5</div>
 					<div class="layer_panel_item">6</div>
 				</div>
+				<div id="altitude_button" class="panelButton">
+					<div>Set altitudes</div>
+					<i class="fas fa-chevron-down"></i>
+				</div>
+				<div id="altitude_panel">
+					<div class="reset_altitudes">Reset</div>
+
+					<div class="altitude_panel_item" id="altitude_panel_item1">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider1"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item2">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider2"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item3">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider3"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item4">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider4"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item5">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider5"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item6">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider6"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item7">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider7"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item8">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider8"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item9">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider9"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item10">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider10"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item11">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider11"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item12">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider12"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item13">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider13"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+					<div class="altitude_panel_item" id="altitude_panel_item14">
+						<div class="altitude_panel_item_color"></div>
+						<input
+							type="range"
+							class="altitude_panel_item_slider"
+							id="altitude_slider14"
+							min="0"
+							max="255"
+							step="0.1"
+							value="0"
+						/>
+					</div>
+				</div>
+				<div class="use_island_func">
+					<input type="checkbox" id="use_island_func" />
+					<div>Use island function</div>
+				</div>
+
+				<div class="generate_button">Generate</div>
+				<div class="download_button">Download</div>
 			</div>
 			<canvas id="canvas" width="512" height="512"></canvas>
 		</div>
+
+		<footer id="footer">
+			<div class="copyright">
+				Made by
+				<a
+					href="https://github.com/MrKerim/RPS/tree/main/Other/Perlin%20Noise"
+					target="_blank"
+					>MrKerim</a
+				>
+				&copy; 2024
+			</div>
+		</footer>
 
 		<script src="panel.js"></script>
 		<script src="jumpTitle.js"></script>
