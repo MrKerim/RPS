@@ -53,7 +53,7 @@ I use sum of two different frequency and amplitude sine waves to produce the x-a
 
 For any pixel in the map by $x$ and $y$
 
-$map*{xy} = map*{xy} \cdot k*{y} \cdot k*{x} $
+$map_{xy} = map_{xy} \cdot k_{y} \cdot k_{x}$
 
 $k\_{y} = \sin({\pi y }/H)^{2}$
 
