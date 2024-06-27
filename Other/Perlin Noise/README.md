@@ -9,6 +9,7 @@ Whic served [here on github](https://mrkerim.github.io/RPS/Other/Perlin%20Noise/
 - [Introduction](#introduction)
 - [Perlin Noise Generation](#perlin-noise-generation)
 - [Terrain Island Generation](#terrain-island-generation)
+- [Island Function](#island-function)
 - [Usage](#usage)
 - [License](#license)
 
@@ -45,6 +46,21 @@ const lerp = (t, a, b) => {
 ### Terrain Island Generation
 
 The Perlin Noise values are then mapped to custom elevation levels. Islands are shaped using a sinusoidal wave function to create natural-looking terrain features.
+
+### Island Function
+
+I use sum of two different frequency and amplitude sine waves to produce the x-axis wave. Y-axis is just another sine wave with same frequency.
+
+For any pixel in the map by $x$ and $y$ $map_{xy} = map_{xy} \cdot k_{y} \cdot k_{x} $
+$k\_{y} = \sin({\pi y }/H)^{2}$ where $H$ is the pixel height.
+
+$k_{x} = \sin({2\pi \cdot x }/W)^{2} + t_{x}\cdot \sin({\pi \cdot x }/W)^{2}$
+Where $W$ is the pixel width and $t_{x}$ is the frequency coefficient
+
+If we take $t_{x} = 1$ here is the expected graph on $x$
+[graph](src/sine.jpg)
+And here is the island image
+[island_image](src/island.jpg)
 
 ### Usage
 

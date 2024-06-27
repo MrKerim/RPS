@@ -24,20 +24,15 @@ const generate_map = (layer, pixel_number, grid_size) => {
 		try {
 			let map = Noise(layer, pixel_number, grid_size);
 			if (use_island_func_value) {
+				let k_coef = 1;
+
 				for (let i = 0; i < pixel_number; i++)
 					for (let j = 0; j < pixel_number; j++) {
 						const xk =
-							1 -
-							Math.pow(
-								Math.sin((Math.PI * (i - pixel_number / 2)) / pixel_number),
-								2
-							);
-						const yk =
-							1 -
-							Math.pow(
-								Math.sin((Math.PI * (j - pixel_number / 2)) / pixel_number),
-								2
-							);
+							k_coef *
+								Math.pow(Math.sin(Math.PI * ((i * 2) / pixel_number)), 2) +
+							t_coef * Math.pow(Math.sin(Math.PI * (i / pixel_number)), 2);
+						const yk = Math.pow(Math.sin(Math.PI * (j / pixel_number)), 2);
 						map[i][j] *= xk * yk;
 					}
 			}

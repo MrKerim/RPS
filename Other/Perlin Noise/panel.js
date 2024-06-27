@@ -3,6 +3,7 @@ const pixel_number_panel = document.getElementById("pixel_number_panel");
 const pixel_number_panel_icon = document.querySelector(
 	"#pixel_number_button i"
 );
+
 let pixel_number_panel_open = false;
 
 const layer_button = document.getElementById("layer_button");
@@ -14,6 +15,11 @@ let layer_panel_open = false;
 let use_island_func_value = false;
 const use_island_func_div = document.querySelector(".use_island_func div");
 const use_island_func_checkbox = document.getElementById("use_island_func");
+
+const island_coef_div = document.querySelector(".island_coef_div");
+const island_coef_div_label = document.querySelector(".island_coef_div label");
+const island_coef_slider = document.querySelector(".island_coef_slider");
+let t_coef = 14.7;
 
 const altitude_button = document.getElementById("altitude_button");
 const altitude_panel = document.getElementById("altitude_panel");
@@ -47,13 +53,21 @@ window.addEventListener("DOMContentLoaded", () => {
 	use_island_func_div.addEventListener("click", () => {
 		use_island_func_checkbox.checked = !use_island_func_checkbox.checked;
 		use_island_func_value = !use_island_func_value;
+		if (use_island_func_value) island_coef_div.style.display = "block";
+		else island_coef_div.style.display = "none";
 	});
 	use_island_func_checkbox.addEventListener("click", (e) => {
-		use_island_func_checkbox.checked = !use_island_func_checkbox.checked;
 		use_island_func_value = !use_island_func_value;
 
-		use_island_func_checkbox.checked = !use_island_func_checkbox.checked;
-		use_island_func_value = !use_island_func_value;
+		if (use_island_func_value) island_coef_div.style.display = "block";
+		else island_coef_div.style.display = "none";
+	});
+
+	island_coef_slider.addEventListener("input", (e) => {
+		t_coef = Math.pow(parseFloat(island_coef_slider.value), 1.5);
+		island_coef_div_label.innerHTML = `Sinusoidal Wave Coefficient: ${t_coef.toFixed(
+			2
+		)}`;
 	});
 
 	resetAltitudes();
@@ -125,13 +139,14 @@ window.addEventListener("DOMContentLoaded", () => {
 		item.addEventListener("click", () => {
 			layer_panel_item_array[0].click();
 			const value = parseInt(item.innerText);
+			console.log("value", value);
 			if (value == 128) {
+				console.log(layer_panel_item_array);
 				layer_panel_item_array[4].style.display = "none";
 				layer_panel_item_array[5].style.display = "none";
-			}
-			if (value == 256) {
+			} else if (value == 256) {
 				layer_panel_item_array[5].style.display = "none";
-			} else {
+			} else if (value == 512) {
 				layer_panel_item_array[4].style.display = "flex";
 				layer_panel_item_array[5].style.display = "flex";
 			}

@@ -397,3 +397,44 @@ canvas {
 .copyright {
 	font-size: 14px; /* Adjust font size as needed */
 }
+
+.island_coef_div {
+	display: none;
+	margin: 10px;
+	padding: 20px;
+	border-radius: 8px;
+	background-color: #1f143d;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	transition: 1s;
+	width: 310px;
+}
+.island_coef_div label {
+	font-family: Calistoga;
+	font-size: 1.2em;
+	color: #aea5c9;
+}
+
+.island_coef_slider {
+	flex: 1;
+	-webkit-appearance: none;
+	width: 100%;
+	height: 2px;
+	border-radius: 5px;
+	background: linear-gradient(to right, #000000 0%, #ffffff 100%);
+	outline: none;
+	opacity: 1;
+	transition: opacity 0.15s ease-in-out;
+}
+.island_coef_slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background: #aea5c9;
+	cursor: pointer;
+}
+
+.island_coef_slider input {
+	display: none;
+}
