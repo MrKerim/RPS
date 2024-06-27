@@ -59,6 +59,7 @@ Where $W$ is the pixel width and $t_{x}$ is the frequency coefficient
 
 If we take $t_{x} = 1$ here is the expected graph on $x$
 ![graph](src/sine.jpg)
+
 And here is the island image
 ![island_image](src/island.jpg)
 
