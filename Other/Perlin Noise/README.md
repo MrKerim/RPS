@@ -51,10 +51,16 @@ The Perlin Noise values are then mapped to custom elevation levels. Islands are 
 
 I use sum of two different frequency and amplitude sine waves to produce the x-axis wave. Y-axis is just another sine wave with same frequency.
 
-For any pixel in the map by $x$ and $y$ $map_{xy} = map_{xy} \cdot k_{y} \cdot k_{x} $
-$k\_{y} = \sin({\pi y }/H)^{2}$ where $H$ is the pixel height.
+For any pixel in the map by $x$ and $y$
+
+$map*{xy} = map*{xy} \cdot k*{y} \cdot k*{x} $
+
+$k\_{y} = \sin({\pi y }/H)^{2}$
+
+where $H$ is the pixel height.
 
 $k_{x} = \sin({2\pi \cdot x }/W)^{2} + t_{x}\cdot \sin({\pi \cdot x }/W)^{2}$
+
 Where $W$ is the pixel width and $t_{x}$ is the frequency coefficient
 
 If we take $t_{x} = 1$ here is the expected graph on $x$
