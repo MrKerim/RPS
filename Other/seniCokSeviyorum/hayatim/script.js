@@ -216,7 +216,7 @@ function adjustParameterBasedOnDevice() {
 }
 
 // Adjust the parameter based on the detected device type
-adjustParameterBasedOnDevice();
+//adjustParameterBasedOnDevice();
 
 const slidingInterval = setInterval(() => {
 	if (!(parseInt(window.getComputedStyle(textContainer).top) < 0)) {
