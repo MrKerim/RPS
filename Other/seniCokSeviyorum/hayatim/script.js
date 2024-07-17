@@ -226,3 +226,11 @@ const slidingInterval = setInterval(() => {
 		clearInterval(slidingInterval);
 	}
 }, slidingTime);
+
+addEventListener("DOMContentLoaded", () => {
+	let bebisGirdi = localStorage.getItem("bebisGirdi");
+	if (bebisGirdi === null) bebisGirdi = 0;
+
+	localStorage.setItem("bebisGirdi", parseInt(bebisGirdi) + 1);
+	console.log("Bebis Girdi: ", localStorage.getItem("bebisGirdi"));
+});
